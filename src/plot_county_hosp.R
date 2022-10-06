@@ -1,8 +1,7 @@
-#' plot_county_cases - plot case moving averages for selected counties 
+#' plot_county_hosp - plot case daily hospitalizations for selected counties in NY
 #'
 #' @param df - a dataframe from https://health.data.ny.gov/api/views/jw46-jpb7/rows.csv?accessType=DOWNLOAD
 #'             if Null, data is downloaded from url.
-#' @param state - selected state, New York is default,
 #' @param counties - a list of county names. Capital District counties are default.
 #' @param date - an option date string. If NULL, today's date is used. 
 #'
@@ -16,7 +15,6 @@
 
 plot_county_hosp <- function(df = NULL,
                              counties = c('Albany', 'Columbia', 'Rensselaer', 'Saratoga', 'Schenectady'),
-                             lag = 7,
                              date = NULL) {
   require(tidyverse)
   require(grid)
@@ -28,8 +26,6 @@ plot_county_hosp <- function(df = NULL,
     date = Sys.Date()
   }
   
-  state <- 'New York'
-
   if(is.null(df)) {
     url <- 'https://health.data.ny.gov/api/views/jw46-jpb7/rows.csv?accessType=DOWNLOAD'
     df <- read_csv(url)
